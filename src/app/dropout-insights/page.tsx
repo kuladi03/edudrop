@@ -1,11 +1,28 @@
 'use client'
 import { ReactNode, useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+} from "recharts";
 
 // Tabs Component
 interface TabsProps {
   children: ReactNode;
-  value: string;
-  onValueChange: (value: string) => void;
   className?: string;
 }
 
@@ -25,12 +42,11 @@ export function TabsList({ children }: TabsListProps) {
 // TabsTrigger Component
 interface TabsTriggerProps {
   children: ReactNode;
-  value: string;
-  className?: string;
   onClick: () => void;
+  className?: string;
 }
 
-export function TabsTrigger({ children, className, onClick }: TabsTriggerProps) {
+export function TabsTrigger({ children, onClick, className }: TabsTriggerProps) {
   return (
     <button
       className={`py-2 px-4 text-sm font-medium rounded-t-lg ${className}`}
@@ -41,50 +57,35 @@ export function TabsTrigger({ children, className, onClick }: TabsTriggerProps) 
   );
 }
 
-// TabsContent Component
-interface TabsContentProps {
-  children: ReactNode;
-  value: string;
-}
+// Mock Data
+const dropoutData = {
+  gender: [
+    { name: "Male", dropoutRate: 16 },
+    { name: "Female", dropoutRate: 14 },
+    { name: "Other", dropoutRate: 15 },
+  ],
+  area: [
+    { name: "Urban", dropoutRate: 12 },
+    { name: "Semi-Urban", dropoutRate: 15 },
+    { name: "Rural", dropoutRate: 18 },
+  ],
+  caste: [
+    { name: "General", dropoutRate: 10 },
+    { name: "OBC", dropoutRate: 15 },
+    { name: "SC", dropoutRate: 18 },
+    { name: "ST", dropoutRate: 20 },
+  ],
+  standard: [
+    { name: "5th", dropoutRate: 5 },
+    { name: "6th", dropoutRate: 7 },
+    { name: "7th", dropoutRate: 10 },
+    { name: "8th", dropoutRate: 12 },
+    { name: "9th", dropoutRate: 15 },
+    { name: "10th", dropoutRate: 18 },
+  ],
+};
 
-export function TabsContent({ children }: TabsContentProps) {
-  return <div>{children}</div>;
-}
-
-// The DropoutInsights Component
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
-// import { useState } from 'react';
-
-// Mock data - replace with real data in production
-const dropoutByGender = [
-  { name: 'Male', dropoutRate: 16 },
-  { name: 'Female', dropoutRate: 14 },
-  { name: 'Other', dropoutRate: 15 },
-]
-
-const dropoutByArea = [
-  { name: 'Urban', dropoutRate: 12 },
-  { name: 'Semi-Urban', dropoutRate: 15 },
-  { name: 'Rural', dropoutRate: 18 },
-]
-
-const dropoutByCaste = [
-  { name: 'General', dropoutRate: 10 },
-  { name: 'OBC', dropoutRate: 15 },
-  { name: 'SC', dropoutRate: 18 },
-  { name: 'ST', dropoutRate: 20 },
-]
-
-const dropoutByStandard = [
-  { name: '5th', dropoutRate: 5 },
-  { name: '6th', dropoutRate: 7 },
-  { name: '7th', dropoutRate: 10 },
-  { name: '8th', dropoutRate: 12 },
-  { name: '9th', dropoutRate: 15 },
-  { name: '10th', dropoutRate: 18 },
-]
-
+// Dropout Insights Component
 export default function DropoutInsights() {
   const [selectedTab, setSelectedTab] = useState("gender");
 
@@ -96,26 +97,25 @@ export default function DropoutInsights() {
           <CardDescription>Segmented by various demographic factors</CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs value={selectedTab} onValueChange={setSelectedTab}>
+          <Tabs>
             <TabsList>
-              <TabsTrigger value="gender" onClick={() => setSelectedTab('gender')}>Gender</TabsTrigger>
-              <TabsTrigger value="area" onClick={() => setSelectedTab('area')}>Area</TabsTrigger>
-              <TabsTrigger value="caste" onClick={() => setSelectedTab('caste')}>Caste</TabsTrigger>
-              <TabsTrigger value="standard" onClick={() => setSelectedTab('standard')}>Standard/Age</TabsTrigger>
+              <TabsTrigger onClick={() => setSelectedTab("gender")}>Gender</TabsTrigger>
+              <TabsTrigger onClick={() => setSelectedTab("area")}>Area</TabsTrigger>
+              <TabsTrigger onClick={() => setSelectedTab("caste")}>Caste</TabsTrigger>
+              <TabsTrigger onClick={() => setSelectedTab("standard")}>Standard/Age</TabsTrigger>
             </TabsList>
 
-            {/* Only render content for the active tab */}
             {selectedTab === "gender" && (
-              <DropoutChart data={dropoutByGender} title="Dropout Rate by Gender" />
+              <DropoutChart data={dropoutData.gender} title="Dropout Rate by Gender" />
             )}
             {selectedTab === "area" && (
-              <DropoutChart data={dropoutByArea} title="Dropout Rate by Area" />
+              <DropoutChart data={dropoutData.area} title="Dropout Rate by Area" />
             )}
             {selectedTab === "caste" && (
-              <DropoutChart data={dropoutByCaste} title="Dropout Rate by Caste" />
+              <DropoutChart data={dropoutData.caste} title="Dropout Rate by Caste" />
             )}
             {selectedTab === "standard" && (
-              <DropoutChart data={dropoutByStandard} title="Dropout Rate by Standard" chartType="line" />
+              <DropoutChart data={dropoutData.standard} title="Dropout Rate by Standard" chartType="line" />
             )}
           </Tabs>
         </CardContent>
@@ -124,12 +124,19 @@ export default function DropoutInsights() {
   );
 }
 
-function DropoutChart({ data, title, chartType = 'bar' }: { data: { name: string; dropoutRate: number }[], title: string; chartType?: 'bar' | 'line' }) {
+// DropoutChart Component
+interface DropoutChartProps {
+  data: { name: string; dropoutRate: number }[];
+  title: string;
+  chartType?: "bar" | "line";
+}
+
+function DropoutChart({ data, title, chartType = "bar" }: DropoutChartProps) {
   return (
     <div className="h-[300px]">
       <h3 className="text-lg font-medium mb-2">{title}</h3>
       <ResponsiveContainer width="100%" height="100%">
-        {chartType === 'bar' ? (
+        {chartType === "bar" ? (
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
