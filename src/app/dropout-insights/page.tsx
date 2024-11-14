@@ -9,7 +9,7 @@ interface TabsProps {
   className?: string;
 }
 
-export function Tabs({ children, value, onValueChange, className }: TabsProps) {
+export function Tabs({ children, className }: TabsProps) {
   return <div className={`space-y-4 ${className}`}>{children}</div>;
 }
 
@@ -30,7 +30,7 @@ interface TabsTriggerProps {
   onClick: () => void;
 }
 
-export function TabsTrigger({ children, value, className, onClick }: TabsTriggerProps) {
+export function TabsTrigger({ children, className, onClick }: TabsTriggerProps) {
   return (
     <button
       className={`py-2 px-4 text-sm font-medium rounded-t-lg ${className}`}
@@ -47,7 +47,7 @@ interface TabsContentProps {
   value: string;
 }
 
-export function TabsContent({ children, value }: TabsContentProps) {
+export function TabsContent({ children }: TabsContentProps) {
   return <div>{children}</div>;
 }
 

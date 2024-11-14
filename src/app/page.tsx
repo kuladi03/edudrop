@@ -127,7 +127,7 @@ export default function LandingPage() {
                 <BookOpen className="h-12 w-12 text-blue-600" />
                 <h2 className="text-2xl font-bold text-gray-900">Personalized Learning</h2>
                 <p className="text-gray-900">
-                  Tailored learning paths adapt to each student's unique needs and pace.
+                  Tailored learning paths adapt to each student`&apos`s unique needs and pace.
                 </p>
               </div>
               <div className="flex flex-col justify-center space-y-4">
