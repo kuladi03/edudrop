@@ -1,61 +1,72 @@
 'use client'
-import { ReactNode, useState } from "react";
+import { useState } from "react";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 // Tabs Component
-interface TabsProps {
-  children: ReactNode;
-  value: string;
-  onValueChange: (value: string) => void;
-  className?: string;
-}
+// interface TabsProps {
+//   children: ReactNode;
+//   value: string;
+//   onValueChange: (value: string) => void;
+//   className?: string;
+// }
 
-export function Tabs({ children, className }: TabsProps) {
-  return <div className={`space-y-4 ${className}`}>{children}</div>;
-}
+// export function Tabs({ children, className }: TabsProps) {
+//   return <div className={`space-y-4 ${className}`}>{children}</div>;
+// }
 
-// TabsList Component
-interface TabsListProps {
-  children: ReactNode;
-}
+// // TabsList Component
+// interface TabsListProps {
+//   children: ReactNode;
+// }
 
-export function TabsList({ children }: TabsListProps) {
-  return <div className="flex space-x-4">{children}</div>;
-}
+// export function TabsList({ children }: TabsListProps) {
+//   return <div className="flex space-x-4">{children}</div>;
+// }
 
-// TabsTrigger Component
-interface TabsTriggerProps {
-  children: ReactNode;
-  value: string;
-  className?: string;
-  onClick: () => void; // Make sure the click handler is passed down correctly
-}
+// // TabsTrigger Component
+// interface TabsTriggerProps {
+//   children: ReactNode;
+//   value: string;
+//   className?: string;
+//   isSelected: boolean;
+//   onClick: () => void;
+// }
 
-export function TabsTrigger({ children,className, onClick }: TabsTriggerProps) {
-  return (
-    <button
-      className={`py-2 px-4 text-sm font-medium rounded-t-lg ${className}`}
-      onClick={onClick} // Handle click event here
-    >
-      {children}
-    </button>
-  );
-}
+// export function TabsTrigger({ children, className, onClick, isSelected }: TabsTriggerProps) {
+//   return (
+//     <button
+//       className={`py-2 px-4 text-sm font-medium rounded-t-lg ${
+//         isSelected ? "text-blue-600 border-b-2 border-blue-600" : "text-black"
+//       } ${className}`}
+//       onClick={onClick}
+//     >
+//       {children}
+//     </button>
+//   );
+// }
 
-// TabsContent Component
-interface TabsContentProps {
-  children: ReactNode;
-  value: string;
-}
+// // TabsContent Component
+// interface TabsContentProps {
+//   children: ReactNode;
+//   value: string;
+//   isActive: boolean;
+// }
 
-export function TabsContent({ children}: TabsContentProps) {
-  return <div>{children}</div>;
-}
+// export function TabsContent({ children, isActive }: TabsContentProps) {
+//   return (
+//     <div
+//       className={`p-4 rounded-lg transition-all duration-300 ${
+//         isActive ? "bg-blue-50 border border-blue-200 shadow-lg" : "hidden"
+//       }`}
+//     >
+//       {children}
+//     </div>
+//   );
+// }
 
 // SolutionPathways Component
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookOpen, GraduationCap, HeartHandshake, Lightbulb } from 'lucide-react';
 
 export default function SolutionPathways() {
@@ -75,21 +86,45 @@ export default function SolutionPathways() {
         <CardContent>
           <Tabs value={selectedTab} onValueChange={handleTabChange} className="space-y-4">
             <TabsList>
-              <TabsTrigger value="government" onClick={() => handleTabChange("government")}>Government Schemes</TabsTrigger>
-              <TabsTrigger value="scholarships" onClick={() => handleTabChange("scholarships")}>Scholarships</TabsTrigger>
-              <TabsTrigger value="learning" onClick={() => handleTabChange("learning")}>Learning Paths</TabsTrigger>
-              <TabsTrigger value="support" onClick={() => handleTabChange("support")}>Support Programs</TabsTrigger>
+              <TabsTrigger
+                value="government"
+                isSelected={selectedTab === "government"}
+                onClick={() => handleTabChange("government")}
+              >
+                Government Schemes
+              </TabsTrigger>
+              <TabsTrigger
+                value="scholarships"
+                isSelected={selectedTab === "scholarships"}
+                onClick={() => handleTabChange("scholarships")}
+              >
+                Scholarships
+              </TabsTrigger>
+              <TabsTrigger
+                value="learning"
+                isSelected={selectedTab === "learning"}
+                onClick={() => handleTabChange("learning")}
+              >
+                Learning Paths
+              </TabsTrigger>
+              <TabsTrigger
+                value="support"
+                isSelected={selectedTab === "support"}
+                onClick={() => handleTabChange("support")}
+              >
+                Support Programs
+              </TabsTrigger>
             </TabsList>
-            <TabsContent value="government">
+            <TabsContent isActive={selectedTab === "government"}>
               <GovernmentSchemes />
             </TabsContent>
-            <TabsContent value="scholarships">
+            <TabsContent isActive={selectedTab === "scholarships"}>
               <Scholarships />
             </TabsContent>
-            <TabsContent value="learning">
+            <TabsContent isActive={selectedTab === "learning"}>
               <LearningPaths />
             </TabsContent>
-            <TabsContent value="support">
+            <TabsContent isActive={selectedTab === "support"}>
               <SupportPrograms />
             </TabsContent>
           </Tabs>
@@ -99,30 +134,31 @@ export default function SolutionPathways() {
   );
 }
 
+// Helper components for each tab's content
 function GovernmentSchemes() {
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-medium">Government Educational Support Programs</h3>
+      <h3 className="text-lg text-black font-medium">Government Educational Support Programs</h3>
       <ul className="space-y-2">
         <li className="flex items-start">
-          <GraduationCap className="mr-2 h-5 w-5 mt-0.5" />
+          <GraduationCap className="mr-2 h-5 w-5 mt-0.5 text-black " />
           <div>
-            <h4 className="font-medium">Sarva Shiksha Abhiyan (SSA)</h4>
-            <p className="text-sm text-muted-foreground">Comprehensive program for universal elementary education</p>
+            <h4 className="font-medium text-black ">Sarva Shiksha Abhiyan (SSA)</h4>
+            <p className="text-black text-sm text-muted-foreground">Comprehensive program for universal elementary education</p>
           </div>
         </li>
         <li className="flex items-start">
-          <GraduationCap className="mr-2 h-5 w-5 mt-0.5" />
+          <GraduationCap className="text-black mr-2 h-5 w-5 mt-0.5" />
           <div>
-            <h4 className="font-medium">Mid-Day Meal Scheme</h4>
-            <p className="text-sm text-muted-foreground">Provides nutritious meals to improve attendance and retention</p>
+            <h4 className="text-black font-medium">Mid-Day Meal Scheme</h4>
+            <p className="text-black text-sm text-muted-foreground">Provides nutritious meals to improve attendance and retention</p>
           </div>
         </li>
         <li className="flex items-start">
-          <GraduationCap className="mr-2 h-5 w-5 mt-0.5" />
+          <GraduationCap className="text-black mr-2 h-5 w-5 mt-0.5" />
           <div>
-            <h4 className="font-medium">Rashtriya Madhyamik Shiksha Abhiyan (RMSA)</h4>
-            <p className="text-sm text-muted-foreground">Enhances access to secondary education</p>
+            <h4 className="text-black font-medium">Rashtriya Madhyamik Shiksha Abhiyan (RMSA)</h4>
+            <p className="text-black text-sm text-muted-foreground">Enhances access to secondary education</p>
           </div>
         </li>
       </ul>
@@ -134,27 +170,27 @@ function GovernmentSchemes() {
 function Scholarships() {
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-medium">Scholarship Opportunities</h3>
+      <h3 className="text-black text-lg font-medium">Scholarship Opportunities</h3>
       <ul className="space-y-2">
         <li className="flex items-start">
-          <HeartHandshake className="mr-2 h-5 w-5 mt-0.5" />
+          <HeartHandshake className="text-black mr-2 h-5 w-5 mt-0.5" />
           <div>
-            <h4 className="font-medium">National Means-cum-Merit Scholarship</h4>
-            <p className="text-sm text-muted-foreground">For economically weaker students with good academic records</p>
+            <h4 className="text-black font-medium">National Means-cum-Merit Scholarship</h4>
+            <p className="text-black text-sm text-muted-foreground">For economically weaker students with good academic records</p>
           </div>
         </li>
         <li className="flex items-start">
-          <HeartHandshake className="mr-2 h-5 w-5 mt-0.5" />
+          <HeartHandshake className="text-black mr-2 h-5 w-5 mt-0.5" />
           <div>
-            <h4 className="font-medium">Pre-Matric Scholarships for SC/ST Students</h4>
-            <p className="text-sm text-muted-foreground">Financial assistance for students from scheduled castes and tribes</p>
+            <h4 className="text-black font-medium">Pre-Matric Scholarships for SC/ST Students</h4>
+            <p className="text-black text-sm text-muted-foreground">Financial assistance for students from scheduled castes and tribes</p>
           </div>
         </li>
         <li className="flex items-start">
-          <HeartHandshake className="mr-2 h-5 w-5 mt-0.5" />
+          <HeartHandshake className="text-black mr-2 h-5 w-5 mt-0.5" />
           <div>
-            <h4 className="font-medium">State-Specific Merit Scholarships</h4>
-            <p className="text-sm text-muted-foreground">Varies by state, rewards academic excellence</p>
+            <h4 className="text-black font-medium">State-Specific Merit Scholarships</h4>
+            <p className="text-black text-sm text-muted-foreground">Varies by state, rewards academic excellence</p>
           </div>
         </li>
       </ul>
@@ -166,27 +202,27 @@ function Scholarships() {
 function LearningPaths() {
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-medium">Personalized Learning Paths</h3>
+      <h3 className="text-black text-lg font-medium">Personalized Learning Paths</h3>
       <ul className="space-y-2">
         <li className="flex items-start">
-          <BookOpen className="mr-2 h-5 w-5 mt-0.5" />
+          <BookOpen className="text-black mr-2 h-5 w-5 mt-0.5" />
           <div>
-            <h4 className="font-medium">Adaptive Learning Modules</h4>
-            <p className="text-sm text-muted-foreground">AI-powered lessons that adjust to individual learning speeds</p>
+            <h4 className="text-black font-medium">Adaptive Learning Modules</h4>
+            <p className="text-black text-sm text-muted-foreground">AI-powered lessons that adjust to individual learning speeds</p>
           </div>
         </li>
         <li className="flex items-start">
-          <BookOpen className="mr-2 h-5 w-5 mt-0.5" />
+          <BookOpen className="text-black mr-2 h-5 w-5 mt-0.5" />
           <div>
-            <h4 className="font-medium">Skill-Based Learning Tracks</h4>
-            <p className="text-sm text-muted-foreground">Focus on practical skills aligned with career interests</p>
+            <h4 className="text-black font-medium">Skill-Based Learning Tracks</h4>
+            <p className="text-black text-sm text-muted-foreground">Focus on practical skills aligned with career interests</p>
           </div>
         </li>
         <li className="flex items-start">
-          <BookOpen className="mr-2 h-5 w-5 mt-0.5" />
+          <BookOpen className="text-black mr-2 h-5 w-5 mt-0.5" />
           <div>
-            <h4 className="font-medium">Peer-Assisted Study Sessions</h4>
-            <p className="text-sm text-muted-foreground">Collaborative learning groups for challenging subjects</p>
+            <h4 className="text-black font-medium">Peer-Assisted Study Sessions</h4>
+            <p className="text-black text-sm text-muted-foreground">Collaborative learning groups for challenging subjects</p>
           </div>
         </li>
       </ul>
@@ -198,27 +234,27 @@ function LearningPaths() {
 function SupportPrograms() {
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-medium">Additional Support Programs</h3>
+      <h3 className="text-black text-lg font-medium">Additional Support Programs</h3>
       <ul className="space-y-2">
         <li className="flex items-start">
-          <Lightbulb className="mr-2 h-5 w-5 mt-0.5" />
+          <Lightbulb className="text-black mr-2 h-5 w-5 mt-0.5" />
           <div>
-            <h4 className="font-medium">Mentorship Program</h4>
-            <p className="text-sm text-muted-foreground">One-on-one guidance from experienced mentors</p>
+            <h4 className="text-black font-medium">Mentorship Program</h4>
+            <p className="text-black text-sm text-muted-foreground">One-on-one guidance from experienced mentors</p>
           </div>
         </li>
         <li className="flex items-start">
-          <Lightbulb className="mr-2 h-5 w-5 mt-0.5" />
+          <Lightbulb className="text-black mr-2 h-5 w-5 mt-0.5" />
           <div>
-            <h4 className="font-medium">Career Counseling</h4>
-            <p className="text-sm text-muted-foreground">Explore future career paths and set goals</p>
+            <h4 className="text-black font-medium">Career Counseling</h4>
+            <p className="text-black text-sm text-muted-foreground">Explore future career paths and set goals</p>
           </div>
         </li>
         <li className="flex items-start">
-          <Lightbulb className="mr-2 h-5 w-5 mt-0.5" />
+          <Lightbulb className="text-black mr-2 h-5 w-5 mt-0.5" />
           <div>
-            <h4 className="font-medium">Counseling and Well-being Support</h4>
-            <p className="text-sm text-muted-foreground">Mental health resources to reduce stress</p>
+            <h4 className="text-black font-medium">Counseling and Well-being Support</h4>
+            <p className="text-black text-sm text-muted-foreground">Mental health resources to reduce stress</p>
           </div>
         </li>
       </ul>

@@ -1,5 +1,5 @@
 'use client'
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -19,43 +19,46 @@ import {
   LineChart,
   Line,
 } from "recharts";
+import { Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
 
-// Tabs Component
-interface TabsProps {
-  children: ReactNode;
-  className?: string;
-}
+// interface TabsProps {
+//   children: ReactNode;
+//   className?: string;
+// }
 
-export function Tabs({ children, className }: TabsProps) {
-  return <div className={`space-y-4 ${className}`}>{children}</div>;
-}
+// export const Tabs: FC<TabsProps> = ({ children, className }) => {
+//   return <div className={`space-y-4 ${className}`}>{children}</div>;
+// };
 
-// TabsList Component
-interface TabsListProps {
-  children: ReactNode;
-}
+// // TabsList Component
+// interface TabsListProps {
+//   children: ReactNode;
+// }
 
-export function TabsList({ children }: TabsListProps) {
-  return <div className="flex space-x-4">{children}</div>;
-}
+// export function TabsList({ children }: TabsListProps) {
+//   return <div className="flex space-x-4">{children}</div>;
+// }
 
-// TabsTrigger Component
-interface TabsTriggerProps {
-  children: ReactNode;
-  onClick: () => void;
-  className?: string;
-}
+// // TabsTrigger Component
+// interface TabsTriggerProps {
+//   children: ReactNode;
+//   onClick: () => void;
+//   selected: boolean;
+//   className?: string;
+// }
 
-export function TabsTrigger({ children, onClick, className }: TabsTriggerProps) {
-  return (
-    <button
-      className={`py-2 px-4 text-sm font-medium rounded-t-lg ${className}`}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-}
+// export function TabsTrigger({ children, onClick, selected, className }: TabsTriggerProps) {
+//   return (
+//     <button
+//       className={`py-2 px-4 text-sm font-medium rounded-t-lg ${
+//         selected ? "text-blue-600 border-b-2 border-blue-600" : "text-black"
+//       } ${className}`}
+//       onClick={onClick}
+//     >
+//       {children}
+//     </button>
+//   );
+// }
 
 // Mock Data
 const dropoutData = {
@@ -97,27 +100,37 @@ export default function DropoutInsights() {
           <CardDescription>Segmented by various demographic factors</CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs>
-            <TabsList>
-              <TabsTrigger onClick={() => setSelectedTab("gender")}>Gender</TabsTrigger>
-              <TabsTrigger onClick={() => setSelectedTab("area")}>Area</TabsTrigger>
-              <TabsTrigger onClick={() => setSelectedTab("caste")}>Caste</TabsTrigger>
-              <TabsTrigger onClick={() => setSelectedTab("standard")}>Standard/Age</TabsTrigger>
-            </TabsList>
+        <Tabs value={selectedTab} onValueChange={setSelectedTab} className="your-tabs-class">
+        <TabsList>
+          <TabsTrigger value="gender" onClick={() => setSelectedTab("gender")} isSelected={selectedTab === "gender"}>
+            Gender
+          </TabsTrigger>
+          <TabsTrigger value="area" onClick={() => setSelectedTab("area")} isSelected={selectedTab === "area"}>
+            Area
+          </TabsTrigger>
+          <TabsTrigger value="caste" onClick={() => setSelectedTab("caste")} isSelected={selectedTab === "caste"}>
+            Caste
+          </TabsTrigger>
+          <TabsTrigger value="standard" onClick={() => setSelectedTab("standard")} isSelected={selectedTab === "standard"}>
+            Standard/Age
+          </TabsTrigger>
+        </TabsList>
 
-            {selectedTab === "gender" && (
-              <DropoutChart data={dropoutData.gender} title="Dropout Rate by Gender" />
-            )}
-            {selectedTab === "area" && (
-              <DropoutChart data={dropoutData.area} title="Dropout Rate by Area" />
-            )}
-            {selectedTab === "caste" && (
-              <DropoutChart data={dropoutData.caste} title="Dropout Rate by Caste" />
-            )}
-            {selectedTab === "standard" && (
-              <DropoutChart data={dropoutData.standard} title="Dropout Rate by Standard" chartType="line" />
-            )}
-          </Tabs>
+        {selectedTab === "gender" && (
+          <DropoutChart data={dropoutData.gender} title="Dropout Rate by Gender" />
+        )}
+        {selectedTab === "area" && (
+          <DropoutChart data={dropoutData.area} title="Dropout Rate by Area" />
+        )}
+        {selectedTab === "caste" && (
+          <DropoutChart data={dropoutData.caste} title="Dropout Rate by Caste" />
+        )}
+        {selectedTab === "standard" && (
+          <DropoutChart data={dropoutData.standard} title="Dropout Rate by Standard" chartType="line" />
+        )}
+      </Tabs>
+
+
         </CardContent>
       </Card>
     </div>
@@ -134,7 +147,7 @@ interface DropoutChartProps {
 function DropoutChart({ data, title, chartType = "bar" }: DropoutChartProps) {
   return (
     <div className="h-[300px]">
-      <h3 className="text-lg font-medium mb-2">{title}</h3>
+      <h3 className="text-black font-medium mb-2">{title}</h3>
       <ResponsiveContainer width="100%" height="100%">
         {chartType === "bar" ? (
           <BarChart data={data}>
@@ -143,7 +156,7 @@ function DropoutChart({ data, title, chartType = "bar" }: DropoutChartProps) {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="dropoutRate" fill="#8884d8" />
+            <Bar dataKey="dropoutRate" fill="#1C4E80" />
           </BarChart>
         ) : (
           <LineChart data={data}>
@@ -152,7 +165,7 @@ function DropoutChart({ data, title, chartType = "bar" }: DropoutChartProps) {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="dropoutRate" stroke="#8884d8" />
+            <Line type="monotone" dataKey="dropoutRate" stroke="#1C4E80" />
           </LineChart>
         )}
       </ResponsiveContainer>

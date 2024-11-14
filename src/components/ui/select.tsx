@@ -9,33 +9,16 @@ interface SelectProps {
 
 export function Select({ children, onValueChange, defaultValue }: SelectProps) {
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <select
         defaultValue={defaultValue}
         onChange={(e) => onValueChange(e.target.value)}
-        className="w-full py-2 px-4 bg-white border border-gray-300 rounded-lg"
+        className="w-full py-2 px-4 bg-white border border-gray-300 rounded-lg text-gray-700"
       >
         {children}
       </select>
     </div>
   );
-}
-
-interface SelectTriggerProps {
-  children: ReactNode;
-  className?: string;
-}
-
-export function SelectTrigger({ children, className }: SelectTriggerProps) {
-  return <div className={`cursor-pointer ${className}`}>{children}</div>;
-}
-
-interface SelectContentProps {
-  children: ReactNode;
-}
-
-export function SelectContent({ children }: SelectContentProps) {
-  return <div className="absolute mt-1 bg-white border border-gray-300 rounded-md shadow-lg">{children}</div>;
 }
 
 interface SelectItemProps {
@@ -45,16 +28,8 @@ interface SelectItemProps {
 
 export function SelectItem({ value, children }: SelectItemProps) {
   return (
-    <option value={value} className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+    <option value={value} className="text-gray-700">
       {children}
     </option>
   );
-}
-
-interface SelectValueProps {
-  children: ReactNode;
-}
-
-export function SelectValue({ children }: SelectValueProps) {
-  return <span className="text-sm text-gray-700">{children}</span>;
 }
