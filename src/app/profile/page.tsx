@@ -10,6 +10,8 @@ import { Textarea } from "@/components/ui/textarea"
 import Progress from "@/components/ui/progress"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { BarChart, BookOpen, GraduationCap, Mail, MapPin, Phone, User } from 'lucide-react'
+import Header from '@/components/ui/header'
+import Link from 'next/link'
 
 const userData = {
   name: "Alex Johnson",
@@ -38,6 +40,8 @@ export default function UserProfile() {
   const [selectedTab, setSelectedTab] = useState("details");
 
   return (
+    <div>
+      <Header/>
     <div className="container mx-auto p-6 min-h-screen bg-gray-100 text-black">
       <h1 className="text-3xl font-bold mb-6">Student Profile</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -191,6 +195,14 @@ export default function UserProfile() {
           </TabsContent>
         </Tabs>
       </div>
+    </div>
+    <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-white">
+        <p className="text-xs text-gray-500">© 2024 EduDrop.</p>
+        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
+          <Link className="text-xs text-blue-600 hover:underline" href="#">Terms of Service</Link>
+          <Link className="text-xs text-blue-600 hover:underline" href="#">Privacy</Link>
+        </nav>
+      </footer>
     </div>
   )
 }
