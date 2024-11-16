@@ -21,45 +21,6 @@ import {
 } from "recharts";
 import { Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
 
-// interface TabsProps {
-//   children: ReactNode;
-//   className?: string;
-// }
-
-// export const Tabs: FC<TabsProps> = ({ children, className }) => {
-//   return <div className={`space-y-4 ${className}`}>{children}</div>;
-// };
-
-// // TabsList Component
-// interface TabsListProps {
-//   children: ReactNode;
-// }
-
-// export function TabsList({ children }: TabsListProps) {
-//   return <div className="flex space-x-4">{children}</div>;
-// }
-
-// // TabsTrigger Component
-// interface TabsTriggerProps {
-//   children: ReactNode;
-//   onClick: () => void;
-//   selected: boolean;
-//   className?: string;
-// }
-
-// export function TabsTrigger({ children, onClick, selected, className }: TabsTriggerProps) {
-//   return (
-//     <button
-//       className={`py-2 px-4 text-sm font-medium rounded-t-lg ${
-//         selected ? "text-blue-600 border-b-2 border-blue-600" : "text-black"
-//       } ${className}`}
-//       onClick={onClick}
-//     >
-//       {children}
-//     </button>
-//   );
-// }
-
 // Mock Data
 const dropoutData = {
   gender: [
