@@ -4,10 +4,9 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectItem } from "@/components/ui/select";
-import { AlertTriangle, TrendingDown, Users } from 'lucide-react';
+import { AlertTriangle, ArrowUpRight, GraduationCap, TrendingDown, User, Users } from 'lucide-react';
 import DropoutInsights from '../dropout-insights/page';
 import SolutionPathways from '../solution-pathways/page';
-import Header from '@/components/ui/header'; 
 
 // Mock data - replace with real data in production
 const overviewData = {
@@ -23,10 +22,30 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col">
       {/* Include Header at the top */}
-      <Header />
+        <header className="flex justify-between items-center p-4 bg-white shadow-md">
+        {/* Left Section: Logo and Navigation */}
+        <div className="flex items-center space-x-8">
+          <Link href="/dashboard" className="flex items-center space-x-2">
+            <GraduationCap className="h-8 w-8 text-black" />
+            <span className="text-2xl text-black font-semibold">EduDrop</span>
+          </Link>
+        </div>
+
+        {/* Right Section: Links and Profile */}
+        <div className="flex items-center space-x-6 text-black">
+          <Link href="/student-dashboard" className="flex items-center text-lg hover:text-indigo-300 transition-colors">
+            <span className="mr-2">DashLearn</span>
+            <ArrowUpRight className="h-5 w-5" />
+          </Link>
+
+          <Link href="/profile" className="flex items-center">
+            <User className="h-8 w-8 text-black hover:text-indigo-300 transition-colors" />
+          </Link>
+        </div>
+      </header>
 
       {/* Main content */}
-      <div className="flex flex-col justify-center space-y-4 p-6 shadow-lg bg-white">
+      <div className="flex flex-col justify-center space-y-4 p-6 shadow-lg bg-gray-100">
         {/* State Selector */}
         <Select defaultValue={selectedState} onValueChange={setSelectedState}>
           <SelectItem value="All India">All India</SelectItem>

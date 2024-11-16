@@ -15,7 +15,7 @@ export default function AdaptiveLearningPaths() {
   return (
     <div>
         <Header />
-    <div className="container mx-auto p-6 min-h-screen bg-white text-black">
+    <div className="container mx-auto p-6 min-h-screen bg-gray-100 text-black">
       <h1 className="text-3xl font-bold mb-6">Adaptive Learning Paths</h1>
       <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-4">
         <TabsList>
