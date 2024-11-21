@@ -79,17 +79,19 @@ export default function StudentDashboard() {
               </CardHeader>
               <CardContent>
                 {isClient && (
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={data}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Area type="monotone" dataKey="progress" stroke="#8884d8" fill="#8884d8" />
-                    </AreaChart>
-                  </ResponsiveContainer>
+                    <div style={{ width: '100%', height: '300px' }}>
+                        <ResponsiveContainer>
+                            <AreaChart data={data}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Area type="monotone" dataKey="progress" stroke="#8884d8" fill="#8884d8" />
+                            </AreaChart>
+                        </ResponsiveContainer>
+                    </div>
                 )}
-              </CardContent>
+            </CardContent>
             </Card>
             <Card>
               <CardHeader>
