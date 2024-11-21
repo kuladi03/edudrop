@@ -12,21 +12,22 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { BarChart, BookOpen, GraduationCap, Mail, MapPin, Phone, User } from 'lucide-react'
 import Header from '@/components/ui/header'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const userData = {
-  name: "Alex Johnson",
-  email: "alex.johnson@example.com",
+  name: "Aditya Kulkarni",
+  email: "aditya.kulkarni@example.com",
   phone: "+91 98765 43210",
-  address: "123 Education St, Knowledge City, IN 400001",
+  address: "123 Education St, Knowledge City, IN 412201",
   avatar: "/placeholder.svg?height=100&width=100",
   grade: "10th Standard",
-  school: "Bright Future High School",
-  overallProgress: 75,
+  school: "Bharat VishwaVidyalaya , Pune",
+  overallProgress: 94,
   subjects: [
-    { name: "Mathematics", progress: 80 },
-    { name: "Science", progress: 75 },
-    { name: "English", progress: 85 },
-    { name: "Social Studies", progress: 70 },
+    { name: "Mathematics", progress: 98 },
+    { name: "Science", progress: 90 },
+    { name: "English", progress: 89 },
+    { name: "Social Studies", progress: 95 },
   ],
   recentAchievements: [
     "Completed Python Basics course",
@@ -38,6 +39,12 @@ const userData = {
 export default function UserProfile() {
   const [isEditing, setIsEditing] = useState(false)
   const [selectedTab, setSelectedTab] = useState("details");
+
+  const router = useRouter();
+
+const handleLogout = () => {
+    router.push('/')
+}
 
   return (
     <div>
@@ -125,9 +132,9 @@ export default function UserProfile() {
                 <CardDescription>Update your personal information</CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
+                <form className="space-y-4 ">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-grey-100">
+                    <div className="space-y-2 text-grey-100">
                       <Label htmlFor="name">Full Name</Label>
                       <Input id="name" defaultValue={userData.name} disabled={!isEditing} />
                     </div>
@@ -195,6 +202,11 @@ export default function UserProfile() {
           </TabsContent>
         </Tabs>
       </div>
+      <div className="flex justify-center mt-8">
+          <Button onClick={handleLogout} className="bg-red-500 text-white px-6 py-2">
+            Logout
+          </Button>
+        </div>
     </div>
     <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-white">
         <p className="text-xs text-gray-500">© 2024 EduDrop.</p>
