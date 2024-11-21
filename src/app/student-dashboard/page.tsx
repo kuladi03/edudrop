@@ -86,7 +86,7 @@ export default function StudentDashboard() {
                                 <XAxis dataKey="name" />
                                 <YAxis />
                                 <Tooltip />
-                                <Area type="monotone" dataKey="progress" stroke="#8884d8" fill="#8884d8" />
+                                <Area type="monotone" dataKey="progress" stroke="#3B82F6" fill="#3B82F6" />
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>

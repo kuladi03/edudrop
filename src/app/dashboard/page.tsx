@@ -1,14 +1,27 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
+} from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectItem } from "@/components/ui/select";
-import { AlertTriangle, ArrowUpRight, GraduationCap, TrendingDown, User, Users } from 'lucide-react';
+import {
+  AlertTriangle, ArrowUpRight, GraduationCap, TrendingDown, User, Users
+} from 'lucide-react';
 import DropoutInsights from '../dropout-insights/page';
 import SolutionPathways from '../solution-pathways/page';
 
-// Mock data - replace with real data in production
+// Mock Data
+const dropoutReasons = [
+  { reason: 'Financial Issues', students: 450 },
+  { reason: 'Health Problems', students: 300 },
+  { reason: 'Academic Failure', students: 700 },
+  { reason: 'Family Issues', students: 200 },
+  { reason: 'Lack of Interest', students: 400 },
+];
+
 const overviewData = {
   totalStudents: 10000,
   atRiskStudents: 1500,
@@ -22,7 +35,7 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col">
       {/* Include Header at the top */}
-        <header className="flex justify-between items-center p-4 bg-white shadow-md">
+      <header className="flex justify-between items-center p-4 bg-white shadow-md">
         {/* Left Section: Logo and Navigation */}
         <div className="flex items-center space-x-8">
           <Link href="/dashboard" className="flex items-center space-x-2">
@@ -93,13 +106,32 @@ export default function Dashboard() {
           </Card>
         </div>
 
+        {/* Graphical Representation */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-xl font-semibold text-black">Why are Students Dropping Out?</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={dropoutReasons} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="reason" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="students" fill="#3B82F6" />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
         {/* Tabs for Insights and Solutions */}
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-4">
           <div className="flex justify-center space-x-4">
             <TabsList>
               <TabsTrigger
                 value="insights"
-                isSelected={selectedTab === 'insights'} // Add isSelected prop to check if this tab is selected
+                isSelected={selectedTab === 'insights'}
                 onClick={() => setSelectedTab('insights')}
                 className={`text-lg font-medium ${selectedTab === 'insights' ? 'text-blue-600' : 'text-black'}`}
               >
@@ -108,7 +140,7 @@ export default function Dashboard() {
 
               <TabsTrigger
                 value="solutions"
-                isSelected={selectedTab === 'solutions'} // Add isSelected prop to check if this tab is selected
+                isSelected={selectedTab === 'solutions'}
                 onClick={() => setSelectedTab('solutions')}
                 className={`text-lg font-medium ${selectedTab === 'solutions' ? 'text-blue-600' : 'text-black'}`}
               >

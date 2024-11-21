@@ -112,7 +112,7 @@ export default function PerformanceAnalytics() {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="score" fill="#8884d8" />
+                    <Bar dataKey="score" fill="#3B82F6" />
                 </BarChart>
                 </ResponsiveContainer>
             </CardContent>
@@ -125,7 +125,7 @@ export default function PerformanceAnalytics() {
             <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
-                    <Pie dataKey="value" data={timeSpentData} fill="#8884d8" label />
+                    <Pie dataKey="value" data={timeSpentData} fill="#3B82F6" label />
                     <Tooltip />
                 </PieChart>
                 </ResponsiveContainer>
@@ -145,7 +145,7 @@ export default function PerformanceAnalytics() {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="progress" stroke="#8884d8" />
+                <Line type="monotone" dataKey="progress" stroke="#3B82F6"  />
                 </LineChart>
             </ResponsiveContainer>
             </CardContent>

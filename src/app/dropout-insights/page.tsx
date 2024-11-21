@@ -117,7 +117,7 @@ function DropoutChart({ data, title, chartType = "bar" }: DropoutChartProps) {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="dropoutRate" fill="#1C4E80" />
+            <Bar dataKey="dropoutRate" fill="#3B82F6" />
           </BarChart>
         ) : (
           <LineChart data={data}>
@@ -126,7 +126,7 @@ function DropoutChart({ data, title, chartType = "bar" }: DropoutChartProps) {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="dropoutRate" stroke="#1C4E80" />
+            <Line type="monotone" dataKey="dropoutRate" stroke="#3B82F6" />
           </LineChart>
         )}
       </ResponsiveContainer>
